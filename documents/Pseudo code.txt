@@ -89,3 +89,55 @@ function calculateScore(modifier, amount, period):
 
 Get the best loan
 
+function findBestLoan(modifier, requestedAmount, requestedPeriod):
+
+    bestAmount = 0
+    bestPeriod = 0
+
+    # 1: requested period first
+    for amount from 10000 down to 2000 step 100:
+
+        score = calculateScore(modifier, amount, requestedPeriod)
+
+        if score >= 1:
+            bestAmount = amount
+            bestPeriod = requestedPeriod
+            break
+
+    # 2: If nothing found, try other periods
+    if bestAmount == 0:
+
+        for period from 60 down to 12:
+
+            for amount from 10000 down to 2000 step 100:
+
+                score = calculateScore(modifier, amount, period)
+
+                if score >= 1:
+                    bestAmount = amount
+                    bestPeriod = period
+                    break
+
+            if bestAmount != 0:
+                break
+
+    # 3: Return result
+    if bestAmount > 0:
+
+        if bestAmount >= requestedAmount:
+            decision = "positive"
+        else:
+            decision = "negative"
+
+        return {
+            decision: decision,
+            amount: bestAmount,
+            period: bestPeriod
+        }
+
+    return {
+        decision: "negative",
+        amount: 0,
+        period: 0
+    }
+
