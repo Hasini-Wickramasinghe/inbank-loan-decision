@@ -1,0 +1,91 @@
+Main function
+
+function evaluateLoan(personalCode, requestedAmount, requestedPeriod):
+
+    validateInput(requestedAmount, requestedPeriod)
+
+    userType = getUserType(personalCode)
+
+    if userType == "debt":
+        return {
+            decision: "negative",
+            amount: 0,
+            period: 0
+        }
+
+    creditModifier = getCreditModifier(userType)
+
+    bestOffer = findBestLoan(creditModifier, requestedAmount, requestedPeriod)
+
+    return bestOffer
+
+
+
+
+Validate Input
+
+function validateInput(amount, period):
+
+    if amount < 2000 OR amount > 10000:
+        throw "Invalid loan amount"
+
+    if period < 12 OR period > 60:
+        throw "Invalid loan period"
+
+
+
+
+Get the User type
+
+function getUserType(personalCode):
+
+    if personalCode == "49002010965":
+        return "debt"
+
+    if personalCode == "49002010976":
+        return "segment1"
+
+    if personalCode == "49002010987":
+        return "segment2"
+
+    if personalCode == "49002010998":
+        return "segment3"
+
+    return "unknown"
+
+
+
+
+
+Get credit modifier
+
+function getCreditModifier(userType):
+
+    if userType == "segment1":
+        return 100
+
+    if userType == "segment2":
+        return 300
+
+    if userType == "segment3":
+        return 1000
+
+
+
+
+
+Credit score
+
+function calculateScore(modifier, amount, period):
+
+    score = (modifier / amount) * period
+
+    return score
+
+
+
+
+
+
+Get the best loan
+
