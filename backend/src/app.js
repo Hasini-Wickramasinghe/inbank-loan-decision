@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const {evaluateLoan} = require('./decisionEngine')
+const PORT = 5000;
 
 const app = express();
 app.use(cors());
@@ -30,3 +31,7 @@ app.post("/api/loan", (req, res) => {
     const result = evaluateLoan(personalCode, amount, period);
     res.json(result);
 });
+
+app.listen(PORT,() =>{
+    console.log("Server is running on port", PORT);
+})
