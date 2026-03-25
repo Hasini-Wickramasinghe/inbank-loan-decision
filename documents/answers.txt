@@ -1,0 +1,19 @@
+01.share your thought process as to the choices you made
+
+While I was working on this assignment, I was focusing mainly about to keep the solution simple, readable, and easy to test.
+For the backend, I used Node.js with Express to set up a REST API. I maintained the logic into a separate functions for the decision engine module to make the code easier to maintain and test.
+
+In the decision algorithm, I used step based iteration (amount decreasing in steps of 100 and period decreasing step-by-step) to balance performance and simplicity.
+This approach ensures we find a valid loan efficiently while keeping the logic straightforward and understandable.
+
+For the frontend, I intentionally used a minimal HTML and JavaScript interface. 
+My goal was to demonstrate the functionality of the API without complicating the UI, making it easy for reviewers to run and test the solution with a single command.
+
+I also added input validation and logging to ensure robustness and to make debugging and testing easier.
+
+
+02.What is one thing you would improve about the take home assignment and how would you improve it?
+
+One thing I would improve is adding more detailed examples of expected input and output.
+This would help clarify edge cases and would provide a clear idea of the requirement.
+I would include sample test cases to make the expected behavior clearer and reduce ambiguity.
