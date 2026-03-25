@@ -1,6 +1,5 @@
 function calculateScore(modifier, amount, period){
     const score = (modifier / amount) * period;
-    console.log("Score calculation:", score);
     return score;
 }
 
@@ -31,6 +30,7 @@ function findBestLoan(modifier, requestedAmount, requestedPeriod) {
         if (score >= 1) {
             bestAmount = amount;
             bestPeriod = requestedPeriod;
+            console.log("Score calculation:", score);
             break;
         }
     }
@@ -43,6 +43,7 @@ function findBestLoan(modifier, requestedAmount, requestedPeriod) {
                 if (score >= 1) {
                     bestAmount = amount;
                     bestPeriod = period;
+                    console.log("Score calculation:", score);
                     break;
                 }
             }
@@ -61,8 +62,10 @@ function findBestLoan(modifier, requestedAmount, requestedPeriod) {
 
 function evaluateLoan(personalCode, amount, period) {
     const userType = getUserType(personalCode);
+    console.log("evaluateLoan function executed");
 
     if (userType === "debt" || getCreditModifier(userType) === 0) {
+        console.log("usertype:", userType);
         return { decision: "negative", amount: 0, period: 0 };
     }
 

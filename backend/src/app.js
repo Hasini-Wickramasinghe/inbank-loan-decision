@@ -8,7 +8,9 @@ app.use(cors());
 app.use(express.json());
 
 app.post("/api/loan", (req, res) => {
+    console.log("/api/loan called");
     const { personalCode, amount, period } = req.body;
+    console.log("Request body:", req.body);
 
     // validation
     if (!personalCode || amount == null || period == null) {
