@@ -6,6 +6,7 @@ const PORT = 5000;
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.static("public"));
 
 app.post("/api/loan", (req, res) => {
     console.log("/api/loan called");
