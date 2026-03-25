@@ -1,57 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Loan Checker</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Loan Checker</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
 
-<body>
+    <body>
+        <div class="container">
+            <h2>Loan Checker</h2>
 
-<h2>Loan Checker</h2>
+            <input type="text" id="personalCode" placeholder="Personal Code"><br><br>
+            <input type="number" id="amount" placeholder="Loan Amount"><br><br>
+            <input type="number" id="period" placeholder="Loan Period (months)"><br><br>
+            <button onclick="checkLoan()">Check Loan</button>
 
-<input type="text" id="personalCode" placeholder="Personal Code"><br><br>
-<input type="number" id="amount" placeholder="Loan Amount"><br><br>
-<input type="number" id="period" placeholder="Loan Period (months)"><br><br>
-<button onclick="checkLoan()">Check Loan</button>
+            <p id="result"></p>
+        </div>
 
-<p id="result"></p>
+        <script>
+            async function checkLoan() {
+                const personalCode = document.getElementById("personalCode").value;
+                const amount = Number(document.getElementById("amount").value);
+                const period = Number(document.getElementById("period").value);
 
-<script>
-async function checkLoan() {
-    const personalCode = document.getElementById("personalCode").value;
-    const amount = Number(document.getElementById("amount").value);
-    const period = Number(document.getElementById("period").value);
+                const result = document.getElementById("result");
+                result.innerText = "Checking...";
 
-    const result = document.getElementById("result");
-    result.innerText = "Checking...";
+                try {
+                    const response = await fetch("/api/loan", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ personalCode, amount, period })
+                    });
 
-    try {
-        const response = await fetch("/api/loan", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ personalCode, amount, period })
-        });
+                    const data = await response.json();
 
-        const data = await response.json();
+                    if (!response.ok) {
+                        result.innerText = "Error: " + data.error;
+                        return;
+                    }
 
-        if (!response.ok) {
-            result.innerText = "Error: " + data.error;
-            return;
-        }
+                    result.innerText = 
+                        "Decision: " + data.decision +
+                        " | Amount: " + data.amount +
+                        " | Period: " + data.period;
 
-        result.innerText = 
-            "Decision: " + data.decision +
-            " | Amount: " + data.amount +
-            " | Period: " + data.period;
+                } catch (err) {
+                    result.innerText = "Cannot connect to server";
+                }
+            }
+        </script>
 
-    } catch (err) {
-        result.innerText = "Cannot connect to server";
-    }
-}
-</script>
-
-</body>
+    </body>
 </html>
